@@ -21,15 +21,15 @@ class Solution {
 	}
 
 public:
-    string longestPalindrome(string s) {
+	string longestPalindrome(string s) {
 		string res;
-        for (int i = 0; i < s.size(); i++) {
+		for (int i = 0; i < s.size(); i++) {
 			string oddStr = longestPString(s, i, i);
 			string evenStr = longestPString(s, i, i + 1);
 			res = strmax(res, strmax(oddStr, evenStr));
 		}
 		return res;
-    }
+	}
 };
 // @lc code=end
 

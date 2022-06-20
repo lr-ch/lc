@@ -26,7 +26,7 @@ class Solution {
 	}
 
 public:
-    vector<vector<int>> permuteUnique(vector<int>& nums) {
+	vector<vector<int>> permuteUnique(vector<int>& nums) {
 		vector<int>	path;
 		vector<bool> consumed(nums.size(), false);
 		vector<vector<int>>	result;
@@ -34,6 +34,6 @@ public:
 		backtrack(path, nums, consumed);
 		result.assign(ans.begin(), ans.end());
 		return result;
-    }
+	}
 };
 // @lc code=end

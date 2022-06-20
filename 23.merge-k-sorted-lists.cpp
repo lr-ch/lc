@@ -38,11 +38,11 @@ class Solution {
 	}
 
 public:
-    ListNode* mergeKLists(vector<ListNode*>& lists) {
+	ListNode* mergeKLists(vector<ListNode*>& lists) {
 		vector<int> merged;
 
 		// merge all val into one vector
-        for (int i = 0; i < lists.size(); i++)
+		for (int i = 0; i < lists.size(); i++)
 			merge(merged, lists[i]);
 
 		// sort
@@ -50,7 +50,7 @@ public:
 
 		// transform vector to linked list
 		return trans(merged);
-    }
+	}
 };
 // @lc code=end
 

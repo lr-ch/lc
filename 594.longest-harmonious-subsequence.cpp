@@ -7,8 +7,8 @@
 // @lc code=start
 class Solution {
 public:
-    int findLHS(vector<int>& nums) {
-        map<int, int> counter;
+	int findLHS(vector<int>& nums) {
+		map<int, int> counter;
 		int result = 0;
 
 		for (int n : nums)
@@ -25,7 +25,7 @@ public:
 				result = max(result, it1->second + it2->second);
 		}
 		return result;
-    }
+	}
 };
 // @lc code=end
 

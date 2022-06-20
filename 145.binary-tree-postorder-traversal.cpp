@@ -25,11 +25,11 @@ class Solution {
 		v.push_back(root->val);
 	}
 public:
-    vector<int> postorderTraversal(TreeNode* root) {
+	vector<int> postorderTraversal(TreeNode* root) {
 		vector<int> v;
 		traverse(root, v);
 		return v;
-    }
+	}
 };
 // @lc code=end
 

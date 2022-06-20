@@ -26,11 +26,11 @@ class Solution {
 	}
 
 public:
-    int minimumTotal(vector<vector<int>>& triangle) {
+	int minimumTotal(vector<vector<int>>& triangle) {
 		int depth = triangle.size();
-        vector<vector<int>>	memo(depth, vector<int>(depth, INT_MAX));
+		vector<vector<int>>	memo(depth, vector<int>(depth, INT_MAX));
 		return traverse(0, 0, triangle, memo);
-    }
+	}
 };
 // @lc code=end
 

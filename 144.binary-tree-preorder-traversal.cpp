@@ -25,11 +25,11 @@ class Solution {
 		traverse(root->right, v);
 	}
 public:
-    vector<int> preorderTraversal(TreeNode* root) {
+	vector<int> preorderTraversal(TreeNode* root) {
 		vector<int>	v;
 		traverse(root, v);
 		return v;
-    }
+	}
 };
 // @lc code=end
 

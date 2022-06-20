@@ -29,11 +29,11 @@ class Solution {
 	}
 
 public:
-    int diameterOfBinaryTree(TreeNode* root) {
+	int diameterOfBinaryTree(TreeNode* root) {
 		int diameter = INT_MIN;
 		maxDepth(root, diameter);
 		return diameter;
-    }
+	}
 };
 // @lc code=end
 

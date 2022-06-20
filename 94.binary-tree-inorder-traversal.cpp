@@ -26,11 +26,11 @@ class Solution {
 	}
 
 public:
-    vector<int> inorderTraversal(TreeNode* root) {
+	vector<int> inorderTraversal(TreeNode* root) {
 		vector<int> res;
-        traverse(root, res);
+		traverse(root, res);
 		return res;
-    }
+	}
 };
 // @lc code=end
 

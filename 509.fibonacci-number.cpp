@@ -7,8 +7,8 @@
 // @lc code=start
 class Solution {
 public:
-    int fib(int n) {
-        int f_0 = 0, f_1 = 1, result;
+	int fib(int n) {
+		int f_0 = 0, f_1 = 1, result;
 
 		if (n == 0) return f_0;
 		if (n == 1) return f_1;
@@ -19,7 +19,7 @@ public:
 			f_1 = result;
 		}
 		return result;
-    }
+	}
 };
 // @lc code=end
 

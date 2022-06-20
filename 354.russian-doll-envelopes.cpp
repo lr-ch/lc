@@ -41,15 +41,15 @@ class Solution {
 	}
 
 public:
-    int maxEnvelopes(vector<vector<int>>& envelopes) {
+	int maxEnvelopes(vector<vector<int>>& envelopes) {
 		vector<pair<int, int>> es;
 
 		for (auto e : envelopes) es.push_back(make_pair(e[0], e[1]));
-        sort(es.begin(), es.end(), [](const auto& v1, const auto& v2) {
+		sort(es.begin(), es.end(), [](const auto& v1, const auto& v2) {
 			return v1.first == v2.first ? v1.second > v2.second : v1.first < v2.first;
 		});
 
 		return lengthOfLIS(es);
-    }
+	}
 };
 // @lc code=end

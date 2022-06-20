@@ -26,12 +26,12 @@ class Solution {
 	}
 
 public:
-    vector<vector<int>> permute(vector<int>& nums) {
-        vector<int> path;
+	vector<vector<int>> permute(vector<int>& nums) {
+		vector<int> path;
 		vector<bool> consumed(nums.size(), false);
 		bt(path, nums, consumed);
 		return ans;
-    }
+	}
 };
 // @lc code=end
 

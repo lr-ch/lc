@@ -17,7 +17,7 @@
  */
 class Solution {
 public:
-    ListNode* removeElements(ListNode* head, int val) {
+	ListNode* removeElements(ListNode* head, int val) {
 		ListNode dummy(INT_MAX, head);
 		ListNode *current = &dummy, *next = current->next;
 
@@ -30,7 +30,7 @@ public:
 			next = next->next;
 		}
 		return dummy.next;
-    }
+	}
 };
 // @lc code=end
 

@@ -26,13 +26,13 @@ class Solution {
 		vector<int> dp;
 
 		for (auto i : v) {
-			// find the position where the element is no bigger than i.second
+			// find the position where the element is bigger or equal to i.second
 			auto iter = lower_bound(dp.begin(), dp.end(), i.second);
 
 			if (iter == dp.end())
 				// not found, create a new pile
 				dp.push_back(i.second);
-			else if (i.second < *iter)
+			else if (*iter > i.second)
 				// put the card on the top of pile
 				*iter = i.second;
 		}

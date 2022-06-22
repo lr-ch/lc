@@ -12,18 +12,18 @@ public:
 		priority_queue<int> usedBrick;
 		int i;
 		for (i = 0; i < heights.size() - 1; i++) {
-			// go ahead if the next one is equal or lower the current
+			// go ahead if the next one is equal or lower than the current
 			if (heights[i + 1] <= heights[i]) continue;
 
 			int bricksToUse = heights[i + 1] - heights[i];
 			if (bricks - bricksToUse >= 0) {
-				// use brick to go next building
+				// use bricks to go to next building
 				bricks -= bricksToUse;
 				usedBrick.push(bricksToUse);
 				continue;
 			}
 
-			// bricks is not enough
+			// bricks are not enough
 			if (ladders > 0) {
 				// check if we have usedBrick before, and make sure
 				// the usedBrick is worth of replacing with ladder
@@ -45,7 +45,6 @@ public:
 				ladders--;
 				continue;
 			}
-
 			// no ladders, no bricks
 			break;
 		}

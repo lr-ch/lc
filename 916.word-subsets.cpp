@@ -33,6 +33,13 @@ public:
 		return ans;
 	}
 */
+	/*
+	 *  Accepted
+	 *   * 56/56 cases passed (709 ms)
+	 *   * Your runtime beats 20.45 % of cpp submissions
+	 *   * Your memory usage beats 13.71 % of cpp submissions (175.7 MB)
+	 */
+/*
 	map<char, int> calculateOccurrences(string& str) {
 		map<char, int> tmp;
 
@@ -89,6 +96,46 @@ public:
 
 		for (int i = 0; i < occurWords.size(); i++)
 			if (isSubset(occurWords[i], occurSubstr))
+				ans.push_back(words1[i]);
+
+		return ans;
+	}
+*/
+	typedef array<int, 26> OccurTimesTable;
+
+	OccurTimesTable calculateOccurrences(string& str) {
+		OccurTimesTable tmp;
+		tmp.fill(0);
+		for (auto& ch : str)
+			tmp[ch - 'a']++;
+		return tmp;
+	}
+
+	bool isSubset(OccurTimesTable& s, OccurTimesTable& p) {
+		for (int i = 0; i < 26; i++)
+			if (p[i] > s[i])
+				return false;
+		return true;
+	}
+
+public:
+	vector<string> wordSubsets(vector<string>& words1, vector<string>& words2) {
+		vector<OccurTimesTable>	occurs1;
+		OccurTimesTable occurs2, tmp;
+		vector<string> ans;
+
+		for (auto& str : words1)
+			occurs1.push_back(calculateOccurrences(str));
+
+		occurs2.fill(0);
+		for (auto& str : words2) {
+			tmp = calculateOccurrences(str);
+			for (int i = 0; i < 26; i++)
+				occurs2[i] = max(occurs2[i], tmp[i]);
+		}
+
+		for (int i = 0; i < occurs1.size(); i++)
+			if (isSubset(occurs1[i], occurs2))
 				ans.push_back(words1[i]);
 
 		return ans;

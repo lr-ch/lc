@@ -28,10 +28,9 @@ class Solution {
 		if (t < 0) return 0;
 		if (m[t] != -1) return m[t];
 
-		int sum = 0;
+		m[t] = 0;
 		for (int i = 0; i < n.size(); i++)
-			sum += dp(n, t - n[i], m);
-		m[t] = sum;
+			m[t] += dp(n, t - n[i], m);
 
 		return m[t];
 	}

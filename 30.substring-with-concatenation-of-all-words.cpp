@@ -19,7 +19,7 @@ public:
 		map<string, int> dict;				// [word, count]
 		vector<int> ans;
 
-		for (auto& w : words) dict[w]++;	// words may contains repeated word
+		for (auto& w : words) dict[w]++;	// words may contain repeated word
 
 		for (int i = 0; i <= s.size() - word_len * word_count; i++) {
 			map<string, int> copy = dict;

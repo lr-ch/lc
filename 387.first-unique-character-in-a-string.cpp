@@ -11,7 +11,7 @@
  *  * Your runtime beats 69.35 % of cpp submissions
  *  * Your memory usage beats 15.65 % of cpp submissions (23.5 MB)
  */
-class Solution {
+class HashTable {
 public:
 	int firstUniqChar(string s) {
 		// <char, indexes of appearance of char>
@@ -34,6 +34,22 @@ public:
 				index = j.second[0];
 
 		return index == s.size() ? -1 : index;
+	}
+};
+
+class Solution {
+public:
+	int firstUniqChar(string s) {
+		array<int, 26> table = {0};
+
+		for (int i = 0; i < s.length(); i++)
+			table[s[i] - 'a']++;
+
+		for (int j = 0; j < s.length(); j++)
+			if (table[s[j] - 'a'] == 1)
+				return j;
+
+		return -1;
 	}
 };
 // @lc code=end

@@ -7,7 +7,7 @@
 // @lc code=start
 class Solution {
 	array<string, 26> dict = {
-	//   a      b       c       d       e
+	//   a       b       c       d       e
 		".-",   "-...", "-.-.", "-..",  ".",
 	//   f       g       h       i       j
 		"..-.", "--.",  "....", "..",   ".---",

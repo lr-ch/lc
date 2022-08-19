@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-class Solution {
+class Backtrack {
 	// left  : counter of "("
 	// right : counter of ")"
 	void bt(int left, int right, string& candidate) {
@@ -30,6 +30,23 @@ public:
 	vector<string> generateParenthesis(int n) {
 		string tmp;
 		bt(n, n, tmp);
+		return ans;
+	}
+};
+
+class Solution {
+public:
+	vector<string> generateParenthesis(int n) {
+		vector<string> ans;
+
+		if (n) {
+			for (int i = 0; i < n; i++)
+				for (auto& left : generateParenthesis(i))
+					for (auto& right : generateParenthesis(n - 1 - i))
+						ans.push_back('(' + left + ')' + right);
+		} else
+			ans.push_back("");
+
 		return ans;
 	}
 };

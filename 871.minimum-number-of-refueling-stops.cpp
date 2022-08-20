@@ -27,8 +27,12 @@ public:
 		// for each stations, select the farest distance can reach
 		for (int i = 0; i < stations.size(); i++)
 			for (int j = i; j >= 0; j--)
+				// if current distance can reach this station
 				if (dp[j] >= station_list[i].first)
-					dp[j + 1] = max(dp[j + 1], dp[j] + station_list[i].second);
+					// then the farest distance to next station (dp[j + 1]) is :
+					// current distance (dp[j]) + station's fuel (station_list[i].second)
+					// or it is already the farest distance
+					dp[j + 1] = max(dp[j] + station_list[i].second, dp[j + 1]);
 
 		for (int k = 0; k < dp.size(); k++)
 			if (dp[k] >= target)

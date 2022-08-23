@@ -16,11 +16,25 @@
  * };
  */
 class Solution {
-	void reverse(ListNode *root, ListNode *sentry) {
+	// Space O(n)
+	void reverse_recur(ListNode *root, ListNode *sentry) {
 		if (!root || root == sentry) return;
-		reverse(root->next, sentry);
+		reverse_recur(root->next, sentry);
 		root->next->next = root;
 		root->next = nullptr;
+	}
+
+	// Space O(1)
+	void reverse_itera(ListNode *root, ListNode *sentry) {
+		ListNode *prev = nullptr, *curr = root, *tmp;
+
+		while (curr != sentry) {
+			tmp = curr->next;
+			curr->next = prev;
+			prev = curr;
+			curr = tmp;
+		}
+		curr->next = prev;
 	}
 
 	bool compare(ListNode *head1, ListNode *head2) {
@@ -46,7 +60,7 @@ public:
 		else middle = *slow;
 
 		// reverse list[head, slow]
-		reverse(head, slow);
+		reverse_itera(head, slow);
 
 		return compare(slow, &middle);
 	}

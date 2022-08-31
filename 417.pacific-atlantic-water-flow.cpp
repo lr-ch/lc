@@ -29,9 +29,9 @@ public:
 
 		for (int p = 0; p < m; p++)
 			for (int q = 0; q < n; q++) {
-				if ((p == m - 1 || q == n - 1) && !toAtl[p][q])
+				if (p == m - 1 || q == n - 1)
 					flow(heights, toAtl, p, q);
-				if ((p == 0 || q == 0) && !toPac[p][q])
+				if (p == 0 || q == 0)
 					flow(heights, toPac, p, q);
 			}
 

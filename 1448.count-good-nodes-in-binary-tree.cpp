@@ -16,7 +16,7 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution {
+class SolutionVector {
 	void traverse (TreeNode* root, vector<int>& path, int& ans) {
 		if (!root) return;
 
@@ -38,5 +38,25 @@ public:
 		return ans;
 	}
 };
-// @lc code=end
 
+class Solution {
+	void traverse(TreeNode* root, int m, int& ans) {
+		if (!root) return;
+
+		if (root->val >= m) {
+			ans++;
+			m = root->val;
+		}
+
+		traverse(root->left, m, ans);
+		traverse(root->right, m, ans);
+	}
+
+public:
+	int goodNodes(TreeNode* root) {
+		int max_node = INT_MIN, ans = 0;
+		traverse(root, max_node, ans);
+		return ans;
+	}
+};
+// @lc code=end

@@ -39,7 +39,7 @@ public:
 	}
 };
 
-class Solution {
+class SolutionWithParamter {
 	void traverse(TreeNode* root, int m, int& ans) {
 		if (!root) return;
 
@@ -57,6 +57,22 @@ public:
 		int max_node = INT_MIN, ans = 0;
 		traverse(root, max_node, ans);
 		return ans;
+	}
+};
+
+class Solution {
+	int traverse(TreeNode* root, int m) {
+		if (!root) return 0;
+
+		if (root->val >= m)
+			return 1 + traverse(root->left, root->val) + traverse(root->right, root->val);
+		else
+			return traverse(root->left, m) + traverse(root->right, m);
+	}
+
+public:
+	int goodNodes(TreeNode* root) {
+		return traverse(root, INT_MIN);
 	}
 };
 // @lc code=end

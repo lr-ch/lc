@@ -70,7 +70,7 @@ public:
 	}
 };
 
-class Solution {
+class SolutionBFS {
 public:
 	vector<int> numsSameConsecDiff(int n, int k) {
 		vector<int> ans;
@@ -101,6 +101,32 @@ public:
 		}
 
 		return ans;
+	}
+};
+class Solution {
+public:
+	vector<int> numsSameConsecDiff(int n, int k) {
+		deque<int> nums;
+
+		for (int i = 1; i <= 9; nums.push_back(i), i++);
+
+        while (--n) {
+            int size = nums.size();
+            while (size--) {
+                int tmp = nums.front(), last_digit = tmp % 10;
+                nums.pop_front();
+
+                for (int j = 0; j <= 9; j++) {
+                    if (last_digit - j == k || j - last_digit == k) {
+                        tmp = tmp * 10 + j;
+                        nums.push_back(tmp);
+                        tmp /= 10;
+                    }
+                }
+            }
+        }
+
+        return vector<int>(nums.begin(), nums.end());
 	}
 };
 // @lc code=end

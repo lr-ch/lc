@@ -42,7 +42,7 @@ public:
 	}
 };
 
-class Solution {
+class BacktrackOpt {
 	void bt(vector<int>& ans, int tmp, int n, int k) {
 		if (!n) {
 			ans.push_back(tmp);
@@ -69,5 +69,38 @@ public:
 		return ans;
 	}
 };
-// @lc code=end
 
+class Solution {
+public:
+	vector<int> numsSameConsecDiff(int n, int k) {
+		vector<int> ans;
+		queue<pair<int, int>> nums; // <digits, length of digits>
+
+		for (int i = 1; i <= 9; i++)
+			nums.push({ i, 1 });
+
+		while (!nums.empty()) {
+			auto item = nums.front();
+			nums.pop();
+
+			int tmp = item.first, last_digit = tmp % 10;
+			for (int j = 0; j <= 9; j++, item.second <= n) {
+				if (last_digit - j == k || j - last_digit == k) {
+					item.first = tmp * 10 + j;
+					item.second++;
+
+					if (item.second == n)
+						ans.push_back(item.first);
+					else
+						nums.push(item);
+
+					item.first /= 10;
+					item.second--;
+				}
+			}
+		}
+
+		return ans;
+	}
+};
+// @lc code=end

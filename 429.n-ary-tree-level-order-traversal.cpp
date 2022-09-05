@@ -25,7 +25,7 @@ public:
 };
 */
 
-class Solution {
+class SolutionDFS {
 	void dfs(Node* root, vector<vector<int>>& nodes, int level) {
 		if (!root) return;
 
@@ -44,6 +44,31 @@ public:
 
 		vector<vector<int>> ans(1, vector<int>{});
 		dfs(root, ans, 0);
+		return ans;
+	}
+};
+
+class Solution {
+public:
+	vector<vector<int>> levelOrder(Node* root) {
+		vector<vector<int>> ans;
+		if (!root) return ans;
+
+		queue<Node *> nodes;
+		nodes.push(root);
+
+		while (!nodes.empty()) {
+			int qsize = nodes.size();
+			vector<int> siblings;
+			for (int i = 0; i < qsize; i++) {
+				Node* node = nodes.front();
+				nodes.pop();
+				siblings.push_back(node->val);
+				for (auto& n : node->children)
+					nodes.push(n);
+			}
+			ans.push_back(siblings);
+		}
 		return ans;
 	}
 };

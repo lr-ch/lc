@@ -16,7 +16,7 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution {
+class SolutionSimpleDfs {
 	bool dfs(TreeNode* root) {
 		if (!root) return false;
 
@@ -36,5 +36,17 @@ public:
 		return root;
 	}
 };
-// @lc code=end
 
+class Solution {
+public:
+	TreeNode* pruneTree(TreeNode* root) {
+		if (!root) return nullptr;
+
+		root->left = pruneTree(root->left);
+		root->right = pruneTree(root->right);
+		if (!root->left && !root->right && !root->val)
+			return nullptr;
+		return root;
+	}
+};
+// @lc code=end

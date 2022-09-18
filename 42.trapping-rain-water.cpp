@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-class Solution {
+class SolutionArray {
 public:
 	int trap(vector<int>& height) {
 		vector<int> left(height.size(), 0), right(height.size(), 0);
@@ -30,4 +30,35 @@ public:
 		return ans;
 	}
 };
+
+class Solution2Ptr {
+public:
+	int trap(vector<int>& height) {
+		int left = 0, right = height.size() - 1;
+		int l_max = 0, r_max = 0, ans = 0;
+		while (left < right) {
+			if (height[left] > height[right]) {
+				height[right] >= r_max ?
+					r_max = height[right] : ans += r_max - height[right];
+				right--;
+			} else {
+				height[left] >= l_max ?
+					l_max = height[left] : ans += l_max - height[left];
+				left++;
+			}
+		}
+		return ans;
+	}
+};
+
+class Solution {
+	SolutionArray solArray;
+	Solution2Ptr sol2Ptr;
+
+public:
+	int trap(vector<int>& height) {
+		return sol2Ptr.trap(height);
+	}
+};
+
 // @lc code=end

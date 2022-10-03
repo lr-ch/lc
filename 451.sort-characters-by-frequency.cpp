@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-class Solution {
+class SolutionArray {
 public:
 	string frequencySort(string s) {
 		// step.1 calculate character frequence
@@ -26,6 +26,28 @@ public:
 		string ans;
 		for (const auto& f : freqMap)
 			ans += string(f.second, f.first);
+		return ans;
+	}
+};
+
+class Solution {
+public:
+	string frequencySort(string s) {
+		// 1. construct character dictionary of frequence
+		vector<pair<char, int>> charFreq(256, pair<char, int>({ 0, 0 }));
+		for (char ch : s)
+			charFreq[ch] = pair<char, int>(ch, charFreq[ch].second + 1);
+
+		// 2. sort character by its frequence
+		sort(charFreq.begin(), charFreq.end(), [](const auto& a, const auto& b) {
+			return a.second > b.second;
+		});
+
+		// 3. construct answer string
+		string ans;
+		for (auto f : charFreq)
+			if (f.second > 0)
+				ans += string(f.second, f.first);
 		return ans;
 	}
 };

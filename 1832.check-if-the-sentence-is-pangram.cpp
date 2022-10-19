@@ -35,8 +35,8 @@ class Solution {
 	SolutionFreq fr;
 public:
 	bool checkIfPangram(string sentence) {
-		return ma.checkIfPangram(sentence);
-	//	return fr.checkIfPangram(sentence);
+	//	return ma.checkIfPangram(sentence);
+		return fr.checkIfPangram(sentence);
 	}
 };
 // @lc code=end

@@ -39,8 +39,8 @@ public:
 				left++;
 
 				// decrease valid counter if the characters no longer equal
-				if (mt.count(del_char) && mt[del_char] == ms[del_char]) valid--;
 				ms[del_char]--;
+				if (mt.count(del_char) && mt[del_char] > ms[del_char]) valid--;
 			}
 		}
 		return end == s.length() + 1 ? "" : s.substr(begin, end - begin);

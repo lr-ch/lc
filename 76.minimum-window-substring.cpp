@@ -38,7 +38,7 @@ public:
 				char del_char = s[left];
 				left++;
 
-				// decrease valid counter if the characters no longer equal
+				// decrease valid counter if the characters freqs no longer equal
 				ms[del_char]--;
 				if (mt.count(del_char) && mt[del_char] > ms[del_char]) valid--;
 			}

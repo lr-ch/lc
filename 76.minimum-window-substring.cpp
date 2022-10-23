@@ -26,7 +26,7 @@ public:
 			ms[add_char]++;
 			right++;
 
-			// increase valid counter if the characters freqs are equal
+			// increase valid counter if the characters freqs equal
 			if (mt.count(add_char) && mt[add_char] == ms[add_char]) valid++;
 
 			// all needed characters are found, now shrink window if possible

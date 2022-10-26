@@ -24,7 +24,8 @@ public:
 		//  --> return true
 
 		// initialize table with a (0, -1) for prefix sum of nums[0], because we calculate
-		// with the index of *nums*, nums[0] should be the the index_1 in prefix_sum_table
+		// with the index of *nums*, nums[0] will be the index_0 in prefix_sum_table,
+		// so 0 will be index_-1 in prefix_sum_table
 		unordered_map<int, int> preSumTable{{0, -1}};	// <prefix sum remainder, index>
 		int preSum = 0;
 		for (int i = 0; i < nums.size(); i++) {

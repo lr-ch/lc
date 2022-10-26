@@ -23,15 +23,20 @@ public:
 		//  can be divided by 7
 		//  --> return true
 
-		// initialize table with a (0, 0) for prefix sum of nums[0]
-		unordered_map<int, int> preSumTable{{0, 0}};	// <prefix sum remainder, index>
+		// initialize table with a (0, -1) for prefix sum of nums[0], because we calculate
+		// with the index of *nums*, nums[0] should be the the index_1 in prefix_sum_table
+		unordered_map<int, int> preSumTable{{0, -1}};	// <prefix sum remainder, index>
 		int preSum = 0;
 		for (int i = 0; i < nums.size(); i++) {
 			preSum += nums[i];
 			preSum %= k;
 
-			if (!preSumTable.count(preSum)) preSumTable[preSum] = i + 1;
-			else if (preSumTable[preSum] != i) return true;
+			// the question asks for continuous subarray of size at least two
+			if (preSumTable.count(preSum) && i - preSumTable[preSum] >= 2) return true;
+
+			// don't update the index if it has value already
+			// for cases like [5,0,0,0], k = 3
+			if (!preSumTable.count(preSum)) preSumTable[preSum] = i;
 		}
 		return false;
 	}

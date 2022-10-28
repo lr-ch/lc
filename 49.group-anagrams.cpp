@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-class Solution {
+class SolutionIndicesMap {
 public:
 	vector<vector<string>> groupAnagrams(vector<string>& strs) {
 		unordered_map<string, vector<int>> table;
@@ -27,4 +27,24 @@ public:
 		return ans;
 	}
 };
+
+class Solution {
+public:
+	vector<vector<string>> groupAnagrams(vector<string>& strs) {
+		unordered_map<string, vector<string>> table;
+
+		for (int i = 0; i < strs.size(); i++) {
+			string sorted = strs[i];
+			sort(sorted.begin(), sorted.end());
+			table[sorted].push_back(strs[i]);
+		}
+
+		vector<vector<string>> ans;
+		for (auto& [_, group] : table)
+			ans.push_back(group);
+
+		return ans;
+	}
+};
+
 // @lc code=end

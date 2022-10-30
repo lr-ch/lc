@@ -10,10 +10,10 @@ class Solution {
 
 	// check if c(x, y) is proceedable, and return remain k if possible, -1 if not possible
 	int isProceedable(vector<vector<int>>& g, vector<vector<int>>& r, coord c, int k) {
-		if (c.second < 0 || c.second >= g.size() ||
-			c.first < 0 || c.first >= g[0].size() ||
-			k < g[c.second][c.first] ||
-			k <= r[c.second][c.first])
+		if (c.second < 0 || c.second >= g.size() ||			// out of boundary (y-direction)
+			c.first < 0 || c.first >= g[0].size() ||		// out of boundary (x-direction)
+			k < g[c.second][c.first] ||						// unable to remove obstacle in grid
+			k <= r[c.second][c.first])						// this grid is visited
 			return -1;
 		return k - g[c.second][c.first];
 	}

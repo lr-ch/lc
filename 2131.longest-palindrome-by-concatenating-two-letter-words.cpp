@@ -33,10 +33,10 @@ public:
 				isodd = count % 2;
 				int divided = count / 2;
 				if (!middle && isodd) {
-					ans += 2;
-					middle = true;
+					ans += 2;			// "aa" in the middle -> 2 bytes
+					middle = true;		// if the middle is occupied by a "aa", a "bb" will be ignored
 				}
-				ans += divided * 4;
+				ans += divided * 4;		// a pair of "aa""aa" -> 4 bytes
 			}
 		}
 		return ans;

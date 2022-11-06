@@ -8,13 +8,15 @@
 class Solution {
 public:
 	string orderlyQueue(string s, int k) {
+		int len = s.length();
 		string ans = s;
 
 		if (k == 1) {
-			for (int i = 0; i < s.length(); i++) {
-				s = s.substr(1, s.length() - 1) + s[0];
-				if (s < ans)
-					ans = s;
+			s += s;
+			for (int i = 0; i < len; i++) {
+				string tmp = s.substr(i, len);
+				if (tmp < ans)
+					ans = tmp;
 			}
 		} else
 			sort(ans.begin(), ans.end());
@@ -23,4 +25,3 @@ public:
 	}
 };
 // @lc code=end
-

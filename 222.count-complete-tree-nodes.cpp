@@ -16,7 +16,7 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution {
+class SolutionBFS {
 public:
 	int countNodes(TreeNode* root) {
 		if (!root) return 0;
@@ -37,6 +37,40 @@ public:
 			}
 		}
 		return count;
+	}
+};
+
+class SolutionOpt {
+public:
+	int countNodes(TreeNode* root) {
+		if (!root) return 0;
+
+		TreeNode *left = root, *right = root;
+		int heightL = 0, heightR = 0;
+
+		while (left) {
+			left = left->left;
+			heightL++;
+		}
+
+		while (right) {
+			right = right->right;
+			heightR++;
+		}
+
+		if (heightL == heightR) return pow(2, heightL) - 1;
+
+		return 1 + countNodes(root->left) + countNodes(root->right);
+	}
+};
+
+class Solution {
+	SolutionBFS bfs;
+	SolutionOpt opt;
+public:
+	int countNodes(TreeNode* root) {
+	//	return bfs.countNodes(root);
+		return opt.countNodes(root);
 	}
 };
 // @lc code=end

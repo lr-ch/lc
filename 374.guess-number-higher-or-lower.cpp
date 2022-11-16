@@ -27,9 +27,9 @@ public:
 			else if (ret == 1)
 				left = mid + 1;
 			else
-				break;
+				return mid;
 		}
-		return mid;
+		return -1;
 	}
 };
 // @lc code=end

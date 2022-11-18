@@ -10,7 +10,7 @@ public:
 	int nthUglyNumber(int n) {
 		if (n == 1) return 1;
 
-		vector<int> ans(n);
+		array<int, 1691> ans;
 		ans[0] = 1;
 
 		int x2 = 0, x3 = 0, x5 = 0;

@@ -13,40 +13,39 @@ public:
 
 		maze[entrance[0]][entrance[1]] = '+';	// entrance is not exit
 
-		queue<vector<int>> q;
-		q.push(entrance);
+		queue<pair<int, int>> q;
+		q.push({ entrance[0], entrance[1] });
 
 		while (!q.empty()) {
 			int qsize = q.size();
-			for (int i = 0; i < qsize; i++) {
-				vector<int> pos= q.front();
+			while (qsize--) {
+				auto [y, x] = q.front();
 				q.pop();
 
 				// check boundary
-				if ((pos[0] == 0 || pos[0] == row - 1 ||
-					pos[1] == 0 || pos[1] == col -1) &&
+				if ((y == 0 || y == row - 1 || x == 0 || x == col -1) &&
 					steps != 0)		// impossible steps to be 0
 					return steps;
 
 				// go up
-				if (pos[0] - 1 >= 0 && maze[pos[0] - 1][pos[1]] != '+') {
-					maze[pos[0] - 1][pos[1]] = '+';		// prevent from revisiting here
-					q.push({ pos[0] - 1, pos[1] });
+				if (y - 1 >= 0 && maze[y - 1][x] == '.') {
+					maze[y - 1][x] = '+';		// prevent from revisiting here
+					q.push({ y - 1, x });
 				}
 				// go down
-				if (pos[0] + 1 < row && maze[pos[0] + 1][pos[1]] != '+') {
-					maze[pos[0] + 1][pos[1]] = '+';
-					q.push({ pos[0] + 1, pos[1] });
+				if (y + 1 < row && maze[y + 1][x] == '.') {
+					maze[y + 1][x] = '+';
+					q.push({ y + 1, x });
 				}
 				// go left
-				if (pos[1] - 1 >= 0 && maze[pos[0]][pos[1] - 1] != '+') {
-					maze[pos[0]][pos[1] - 1] = '+';
-					q.push({ pos[0], pos[1] - 1 });
+				if (x - 1 >= 0 && maze[y][x - 1] == '.') {
+					maze[y][x - 1] = '+';
+					q.push({ y, x - 1 });
 				}
 				// go right
-				if (pos[1] + 1 < col && maze[pos[0]][pos[1] + 1] != '+') {
-					maze[pos[0]][pos[1] + 1] = '+';
-					q.push({ pos[0], pos[1] + 1 });
+				if (x + 1 < col && maze[y][x + 1] == '.') {
+					maze[y][x + 1] = '+';
+					q.push({ y, x + 1 });
 				}
 			}
 			steps++;

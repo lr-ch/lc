@@ -23,7 +23,6 @@ class Solution {
 			if (index == w.length() - 1) return true;
 
 			// mark as visited
-			char temp = *curChar;
 			*curChar = 0;
 
 			// continue searching
@@ -33,19 +32,17 @@ class Solution {
 				  bt(b, w, index + 1, { pos.first, pos.second - 1 });
 
 			// undo visited mark for next round search
-			*curChar = temp;
+			*curChar = w[index];
 		}
 		return res;
 	}
 
 public:
 	bool exist(vector<vector<char>>& board, string word) {
-		bool ans = false;
 		for (int i = 0; i < board.size(); i++)
-			for (int j = 0; j < board[0].size(); j++) {
-				ans = bt(board, word, 0, { i, j });
-				if (ans) return true;
-			}
+			for (int j = 0; j < board[0].size(); j++)
+				if (bt(board, word, 0, { i, j }))
+					return true;
 		return false;
 	}
 };

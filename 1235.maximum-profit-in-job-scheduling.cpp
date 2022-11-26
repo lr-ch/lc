@@ -35,18 +35,16 @@ public:
 		 *
 		 * 1. search dp[1...j] for endTime less or equal to vj[j]'s start time
 		 * 2. two choices :
-		 *    a. do not sellect vj[j]'s job -> the profit is currently accumulated profit
+		 *    a. do not select vj[j]'s job -> the profit is currently accumulated profit
 		 *    b. select vj[j]'s job -> the profit is previous endTime accumulated profit + vj[j]'s profit
 		 * 3. pick maximun profit and put it into dp[]
 		 * 4. the last element of dp[] has the maximun profit
 		 */
 
-		int accuProfit = 0;
 		for (int j = 0; j < vj.size(); j++) {
 			auto iter = upper_bound(dp.begin(), dp.end(), pair<int, int>(vj[j].start, INT_MAX));
 			// NOTE : here prev(iter, 1) is protected by dummy job {-1, 0}
-			accuProfit = max(accuProfit, prev(iter, 1)->second + vj[j].profit);
-			dp.push_back({ vj[j].end, accuProfit });
+			dp.push_back({ vj[j].end, max(dp.back().second, prev(iter, 1)->second + vj[j].profit) });
 		}
 
 		return dp[vj.size()].second;

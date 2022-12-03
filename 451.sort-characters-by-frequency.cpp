@@ -45,9 +45,9 @@ public:
 
 		// 3. construct answer string
 		string ans;
-		for (auto f : charFreq)
-			if (f.second > 0)
-				ans += string(f.second, f.first);
+		for (auto& [c, f] : charFreq)
+			if (f > 0)
+				ans += string(f, c);
 		return ans;
 	}
 };

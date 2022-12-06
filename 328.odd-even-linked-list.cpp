@@ -23,9 +23,6 @@ public:
 		ListNode *odd = head, *even = head->next;
 		ListNode *oe = even;	// for connection at last
 
-		ListNode empty;
-		empty.next = head;
-
 		while (even && even->next) {
 			// split odd elements
 			odd->next = even->next;
@@ -36,7 +33,7 @@ public:
 		}
 		odd->next = oe;
 
-		return empty.next;
+		return head;
 	}
 };
 // @lc code=end

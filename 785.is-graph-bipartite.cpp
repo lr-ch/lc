@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-class Solution {
+class SolutionGen {
 	struct BiGraph {
 		vector<vector<int>> graph;
 		vector<bool> colors;
@@ -61,5 +61,51 @@ public:
 		return true;
 	}
 };
-// @lc code=end
 
+class SolutionDfs {
+	bool paint(int node, int color, vector<vector<int>>& g) {
+		if (colors[node]) return colors[node] == color;
+
+		colors[node] = color;
+		for (int adj : g[node])
+			if (!paint(adj, -color, g))
+				return false;
+		return true;
+	}
+
+	vector<int> colors;
+public:
+	bool isBipartite(vector<vector<int>>& graph) {
+		colors.resize(graph.size(), 0);
+
+		for (int i = 0; i < graph.size(); i++)
+			if (!colors[i] && !paint(i, 1, graph))
+				return false;
+		return true;
+	}
+};
+
+class Solution {
+	/*
+	 * Accepted
+	 *  81/81 cases passed (114 ms)
+	 *  Your runtime beats 5.02 % of cpp submissions
+	 *  Your memory usage beats 5.02 % of cpp submissions (19.4 MB)
+	 */
+	SolutionGen	gen;
+
+	/*
+	 * Accepted
+	 *  81/81 cases passed (35 ms)
+	 *  Your runtime beats 70.43 % of cpp submissions
+	 *  Your memory usage beats 94.76 % of cpp submissions (13.4 MB)
+	 */
+	SolutionDfs dfs;
+
+public:
+	bool isBipartite(vector<vector<int>>& graph) {
+	//	return gen.isBipartite(graph);
+		return dfs.isBipartite(graph);
+	}
+};
+// @lc code=end

@@ -11,6 +11,28 @@ public:
 	int numTilings(int n) {
 		array<array<long, 3>, 1001> dp;
 
+		/*
+		 * dp[length][shape at the end]
+		 *  e.g.
+		 *   dp[n][0]
+		 *        n
+		 *    +-------+
+		 *    O ..... O
+		 *    O ..... O
+		 *
+		 *   dp[n][1]
+		 *        n
+		 *    +-------+
+		 *    O ... O X
+		 *    O ... O
+		 *
+		 *   dp[n][2]
+		 *        n
+		 *    +-------+
+		 *    O ... O
+		 *    O ... O X
+		 */
+
 		dp[1][0] = 1;
 		dp[1][1] = 1;
 		dp[1][2] = 1;

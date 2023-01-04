@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-class Solution {
+class SolutionBF {
 public:
 	int minimumRounds(vector<int>& tasks) {
 		unordered_map<int, int> mp;		// <difficulty level, count>
@@ -21,10 +21,41 @@ public:
 				ans++;
 			}
 
-			if (c > 0) ans++;	// can be devided again
+			if (c > 0) ans++;			// can be devided again
 		}
 
 		return ans;
+	}
+};
+
+class SolutionOpt {
+public:
+	int minimumRounds(vector<int>& tasks) {
+		unordered_map<int, int> mp;			// <difficulty level, count>
+
+		for (auto& d : tasks) mp[d]++;
+
+		int ans = 0;
+		for (auto [_, c] : mp) {
+			if (c < 2) return -1;
+
+			if (c % 3 == 0)
+				ans = (c / 3) + ans;
+			else
+				ans = (c / 3) + ans + 1;	// can be devided again
+		}
+
+		return ans;
+	}
+};
+
+class Solution {
+	SolutionBF bf;
+	SolutionOpt opt;
+public:
+	int minimumRounds(vector<int>& tasks) {
+	//	return bf.minimumRounds(tasks);
+		return opt.minimumRounds(tasks);
 	}
 };
 // @lc code=end

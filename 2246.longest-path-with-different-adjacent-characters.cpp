@@ -18,7 +18,7 @@ class Solution {
 		for (const int child : t[node]) {
 			int len = dfs(t, s, child);
 
-			len = (s[child] == s[node] ? 1 : len + 1);
+			if (s[child] == s[node]) continue;
 
 			if (len > maxlen1) {
 				maxlen2 = maxlen1;
@@ -32,7 +32,7 @@ class Solution {
 		// see e.g.1 above
 		ans = max(ans, maxlen1 + (maxlen2 == 0 ? 0 : maxlen2 - 1));
 
-		return max(maxlen1, maxlen2);
+		return maxlen1 + 1;
 	}
 
 	int ans;

@@ -21,12 +21,15 @@ class Solution {
 	}
 
 	void bt(string& s, vector<int>& ip, int index) {
-		if (ip.size() == 4 && index == s.length()) {
-			ans.push_back(
-				to_string(ip[0]) + "." +
-				to_string(ip[1]) + "." +
-				to_string(ip[2]) + "." +
-				to_string(ip[3]));
+		if (ip.size() == 4) {
+			if (index == s.length()) {
+				ans.push_back(
+					to_string(ip[0]) + "." +
+					to_string(ip[1]) + "." +
+					to_string(ip[2]) + "." +
+					to_string(ip[3]));
+			} else
+				return;
 		}
 
 		if (index == s.length()) return;

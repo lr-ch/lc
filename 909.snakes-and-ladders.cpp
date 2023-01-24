@@ -41,7 +41,6 @@ public:
 			while (qsize--) {
 				int curr = square.front();
 				square.pop();
-				visited[curr] = true;
 
 				// check coord and decide next step
 				for (int next = curr + 1; next <= min(curr + 6, goal); next++) {
@@ -50,10 +49,13 @@ public:
 					// NOTE!! Our board is 0-indiced, the board's label is 1-indiced
 					int snake_ladder_next = board[coord.first][coord.second];
 
-					if (snake_ladder_next == -1 && !visited[next])                          // no snake or ladder
+					if (snake_ladder_next == -1 && !visited[next]) {							// no snake or ladder
 						square.push(next);
-					else if (snake_ladder_next != -1 && !visited[snake_ladder_next - 1])    // with snake or ladder
+						visited[next] = true;
+					} else if (snake_ladder_next != -1 && !visited[snake_ladder_next - 1]) {	// with snake or ladder
 						square.push(snake_ladder_next - 1);
+						visited[snake_ladder_next - 1] = true;
+					}
 
 					if (square.back() == goal) return move;
 				}

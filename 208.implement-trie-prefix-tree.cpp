@@ -12,35 +12,41 @@ public:
 
 	Trie() {
 		for (int i = 0; i < 26; i++) this->next[i] = nullptr;
-		terminated = false;
+		this->terminated = false;
+	}
+
+	~Trie() {
+		for (int i = 0; i < 26; i++)
+			if (this->next[i]) delete this->next[i];
+		this->terminated = false;
 	}
 
 	void insert(string word) {
-		if (word.empty()) {
-			this->terminated = true;
-			return;
+		Trie *node = this;
+		for (const char ch : word) {
+			if (!node->next[ch - 'a'])
+				node->next[ch - 'a'] = new Trie();
+			node = node->next[ch - 'a'];
 		}
-
-		if (this->next[word[0] - 'a'] == nullptr)
-			this->next[word[0] - 'a'] = new Trie();
-
-		this->next[word[0] - 'a']->insert(word.substr(1));
+		node->terminated = true;
 	}
 
 	bool search(string word) {
-		if (word.empty()) return this->terminated;
-
-		if (this->next[word[0] - 'a'] == nullptr) return false;
-
-		return this->next[word[0] - 'a']->search(word.substr(1));
+		Trie *node = this;
+		for (const char ch : word) {
+			if (!node->next[ch - 'a']) return false;
+			node = node->next[ch - 'a'];
+		}
+		return node->terminated;
 	}
 
 	bool startsWith(string prefix) {
-		if (prefix.empty()) return true;
-
-		if (this->next[prefix[0] - 'a'] == nullptr) return false;
-
-		return this->next[prefix[0] - 'a']->startsWith(prefix.substr(1));
+		Trie *node = this;
+		for (const char ch : prefix) {
+			if (!node->next[ch - 'a']) return false;
+			node = node->next[ch - 'a'];
+		}
+		return true;
 	}
 };
 

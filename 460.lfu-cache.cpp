@@ -27,38 +27,29 @@ public:
 	int get(int key) {
 		if (key_data.count(key) == 0) return -1;
 
-		auto old_iter = key_data[key];
-		int old_freq = old_iter->freq;
-		int res = old_iter->value;
+		int old_freq = key_data[key]->freq;
+		int res = key_data[key]->value;
 
-		freq_data[old_freq].erase(old_iter);
+		freq_data[old_freq].erase(key_data[key]);
 		freq_data[old_freq + 1].push_front(data(key, res, old_freq + 1));
 		key_data[key] = freq_data[old_freq + 1].begin();
 
-		if (old_freq + 1 < minFreq) minFreq = old_freq + 1;
+		minFreq = freq_data[minFreq].empty() ? minFreq + 1 : minFreq;
 		return res;
 	}
 
 	void put(int key, int value) {
 		if (size == 0) return;
 
-		auto old_iter = key_data.find(key);
-		if (old_iter != key_data.end()) {
-			int old_freq = old_iter->second->freq;
-			freq_data[old_freq].erase(old_iter->second);
+		if (key_data.find(key) != key_data.end()) {
+			int old_freq = key_data.find(key)->second->freq;
+			freq_data[old_freq].erase(key_data.find(key)->second);
 			freq_data[old_freq + 1].push_front(data(key, value, old_freq + 1));
 			key_data[key] = freq_data[old_freq + 1].begin();
 
-			if (old_freq + 1 < minFreq) minFreq = old_freq + 1;
+			minFreq = freq_data[minFreq].empty() ? minFreq + 1 : minFreq;
 		} else {
 			if (used >= size) {
-				/*
-				 * note. freq_data[minFreq] could be empty! Because get() updates
-				 *       freq_data[minFreq] as well. if freq_data[minFreq] is empty,
-				 *       minFreq is going to be updated to 1 anyway, so it is fine
-				 *       to use it freely as counter
-				 */
-				while (freq_data[minFreq].empty()) minFreq++;
 				int del_key = freq_data[minFreq].back().key;
 				freq_data[minFreq].pop_back();
 				key_data.erase(del_key);

@@ -42,8 +42,8 @@ public:
 		if (size == 0) return;
 
 		if (key_data.find(key) != key_data.end()) {
-			int old_freq = key_data.find(key)->second->freq;
-			freq_data[old_freq].erase(key_data.find(key)->second);
+			int old_freq = key_data[key]->freq;
+			freq_data[old_freq].erase(key_data[key]);
 			freq_data[old_freq + 1].push_front(data(key, value, old_freq + 1));
 			key_data[key] = freq_data[old_freq + 1].begin();
 

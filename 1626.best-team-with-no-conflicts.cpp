@@ -6,6 +6,9 @@
 
 // @lc code=start
 class Solution {
+/*
+ * Ref. [300] Longest Increasing Subsequence
+ */
 public:
 	int bestTeamScore(vector<int>& scores, vector<int>& ages) {
 		vector<pair<int, int>> players(scores.size());

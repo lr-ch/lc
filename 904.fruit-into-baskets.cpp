@@ -11,18 +11,13 @@ public:
 	int totalFruit(vector<int>& fruits) {
 		if (fruits.size() < 2) return fruits.size();
 
-		int left = 0, right = left + 1, res = 0;
+		// initial state
+		int left = 0, right = left + 1, res = 2;
 		basket[fruits[left]]++;
 		basket[fruits[right]]++;
 
-		while (right < fruits.size()) {
-			if (right - left + 1 > res)
-				res = right - left + 1;
-
-			// put new fruits
-			right++;
-			if (right < fruits.size())
-				basket[fruits[right]]++;
+		while (right + 1 < fruits.size()) {
+			basket[fruits[++right]]++;
 
 			// remove fruits
 			while (basket.size() > 2) {
@@ -35,6 +30,8 @@ public:
 
 				left++;
 			}
+
+			res = max(res, right - left + 1);
 		}
 
 		return res;

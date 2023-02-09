@@ -42,15 +42,15 @@ public:
 		for (const auto& idea : ideas)
 			memo[idea[0]].insert(idea.substr(1, idea.length() - 1));
 
-		for (char prefixA = 'a'; prefixA <= 'z'; prefixA++) {
-			for (char prefixB = 'a'; prefixB <= 'z'; prefixB++) {
+		for (char prefixA = 'a'; prefixA <= 'y'; prefixA++) {
+			for (char prefixB = prefixA + 1; prefixB <= 'z'; prefixB++) {
 				if (prefixA == prefixB) continue;
 
 				int sizeOfSetA = memo[prefixA].size();
 				int sizeOfSetB = memo[prefixB].size();
 				int sizeOfRepeatSuffix = countRepeatElems(memo[prefixA], memo[prefixB]);
 
-				ans += (sizeOfSetA - sizeOfRepeatSuffix) * (sizeOfSetB - sizeOfRepeatSuffix);
+				ans += 2 * (sizeOfSetA - sizeOfRepeatSuffix) * (sizeOfSetB - sizeOfRepeatSuffix);
 			}
 		}
 

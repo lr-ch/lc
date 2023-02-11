@@ -33,7 +33,7 @@ public:
 				if (ans[curr] == -1) ans[curr] = steps;
 				nodeState[curr][color] = true;
 
-				vector<int> nextList = (color == 0 ? red[curr] : blue[curr]);
+				const auto& nextList = (color == 0 ? red[curr] : blue[curr]);
 				int nextColor = color ? 0 : 1;
 				for (int next : nextList)
 					if (nodeState[next][nextColor] == false)

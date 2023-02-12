@@ -7,16 +7,19 @@
 // @lc code=start
 class Solution {
 	int dfs(unordered_map<int, vector<int>>& adjs, const int seats, int node, int parent) {
-		int passengers = 0;
+		int passengers = 1;
 
-		for (int next : adjs[node])
+		for (int next : adjs[node]) {
 			if (next != parent) {
 				int tmp = dfs(adjs, seats, next, node);
 				passengers += tmp;
-				res += ceil(1.0 * tmp / seats);
-			}
 
-		return passengers + 1;
+			//	res += ceil(1.0 * tmp / seats);
+				res += (tmp + seats - 1) / seats;	// faster than ceil()?
+			}
+		}
+
+		return passengers;
 	}
 
 	long long res = 0;

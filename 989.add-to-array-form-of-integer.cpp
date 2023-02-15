@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-class Solution {
+class SolutionOld {
 public:
 	vector<int> addToArrayForm(vector<int>& num, int k) {
 		string k_str = to_string(k);
@@ -44,6 +44,32 @@ public:
 			ans_v.push_back(i);
 
 		return ans_v;
+	}
+};
+
+class Solution {
+public:
+	vector<int> addToArrayForm(vector<int>& num, int k) {
+		vector<int> kv;
+		do {
+			kv.push_back(k % 10);
+		} while (k /= 10);
+		reverse(kv.begin(), kv.end());
+
+		int lenA = num.size() - 1, lenB = kv.size() - 1, carry = 0;
+		vector<int> ans;
+
+		while (lenA >= 0 || lenB >= 0) {
+			int digitA = (lenA >= 0 ? num[lenA] : 0);
+			int digitB = (lenB >= 0 ? kv[lenB] : 0);
+			ans.push_back((digitA + digitB + carry) % 10);
+			carry = (digitA + digitB + carry) / 10;
+			lenA--; lenB--;
+		}
+		if (carry) ans.push_back(carry);
+
+		reverse(ans.begin(), ans.end());
+		return ans;
 	}
 };
 // @lc code=end

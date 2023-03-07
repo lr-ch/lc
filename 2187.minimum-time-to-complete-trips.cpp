@@ -13,7 +13,12 @@ public:
 		while (left < right) {
 			long long mid = (left + right) / 2, trips = 0;
 		//  cout << left << " : " << mid << " : " << right << "\n";
-			for (const int& t : time) trips += (mid / t);
+			for (const int& t : time) {
+				trips += (mid / t);
+
+				if (trips >= totalTrips)
+					break;
+			}
 
 			if (trips < totalTrips)
 				left = mid + 1;
@@ -24,4 +29,3 @@ public:
 	}
 };
 // @lc code=end
-

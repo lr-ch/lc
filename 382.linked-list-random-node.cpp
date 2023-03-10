@@ -16,17 +16,18 @@
  * };
  */
 class Solution {
-	vector<int> vals;
+	ListNode *h;
 public:
-	Solution(ListNode* head) {
-		while (head) {
-			vals.push_back(head->val);
-			head = head->next;
-		}
-	}
+	Solution(ListNode* head) : h(head) {}
 
 	int getRandom() {
-		return vals[random() % vals.size()];
+		int i = 1, res = h->val;
+		ListNode *curr;
+
+		for (curr = h; curr; curr = curr->next, i++)
+			if (random() % i == 0) res = curr->val;
+
+		return res;
 	}
 };
 

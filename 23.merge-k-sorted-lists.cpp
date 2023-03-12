@@ -16,41 +16,47 @@
  * };
  */
 class Solution {
-	void merge(vector<int>& v, ListNode* lists) {
-		for (ListNode *it = lists; it; it = it->next)
-			v.push_back(it->val);
+	/*
+	 * Shamelessly copied from
+	 *  [21] Merge Two Sorted Lists
+	 */
+	ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+		ListNode dummy, *current = &dummy;
+		current->next = nullptr;
+
+		while (list1 && list2) {
+			if (list1->val < list2->val) {
+				current->next = list1;
+				list1 = list1->next;
+			} else {
+				current->next = list2;
+				list2 = list2->next;
+			}
+			current = current->next;
+		}
+
+		if (list1)
+			current->next = list1;
+
+		if (list2)
+			current->next = list2;
+
+		return dummy.next;
 	}
 
-	ListNode* trans(vector<int>& v) {
-		ListNode *dummy = new ListNode(INT_MIN);
-		ListNode *p = dummy;
+	ListNode* helper(vector<ListNode*>& lists, int begin, int end) {
+		if (begin == end) return lists[begin];
 
-		if (v.size() == 0) {
-			return nullptr;
-		}
-
-		for (int i : v) {
-			ListNode *t = new ListNode(i);
-			p->next = t;
-			p = p->next;
-		}
-		return dummy->next;
+		int mid = (begin + end) / 2;
+		ListNode *left = helper(lists, begin, mid);
+		ListNode *right = helper(lists, mid + 1, end);
+		return mergeTwoLists(left, right);
 	}
 
 public:
 	ListNode* mergeKLists(vector<ListNode*>& lists) {
-		vector<int> merged;
-
-		// merge all val into one vector
-		for (int i = 0; i < lists.size(); i++)
-			merge(merged, lists[i]);
-
-		// sort
-		sort(merged.begin(), merged.end());
-
-		// transform vector to linked list
-		return trans(merged);
+		if (lists.empty()) return nullptr;
+		return helper(lists, 0, lists.size() - 1);
 	}
 };
 // @lc code=end
-

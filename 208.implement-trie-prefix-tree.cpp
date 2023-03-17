@@ -6,45 +6,54 @@
 
 // @lc code=start
 class Trie {
+	struct TrieNode {
+		array<TrieNode *, 26> next;
+		bool terminated;
+
+		TrieNode() {
+			for (auto& it : next) it = nullptr;
+			terminated = false;
+		}
+		~TrieNode() {
+			for (auto& it : next) if (it) delete it;
+		}
+	};
+
+	TrieNode *root;
 public:
-	array<Trie*, 26> next;
-	bool terminated;
-
 	Trie() {
-		for (int i = 0; i < 26; i++) this->next[i] = nullptr;
-		this->terminated = false;
-	}
-
-	~Trie() {
-		for (int i = 0; i < 26; i++)
-			if (this->next[i]) delete this->next[i];
-		this->terminated = false;
+		root = new TrieNode;
 	}
 
 	void insert(string word) {
-		Trie *node = this;
-		for (const char ch : word) {
-			if (!node->next[ch - 'a'])
-				node->next[ch - 'a'] = new Trie();
-			node = node->next[ch - 'a'];
+		TrieNode *tmp = root;
+		for (const auto& ch : word) {
+			int i = ch - 'a';
+			if (!tmp->next[i])
+				tmp->next[i] = new TrieNode;
+			tmp = tmp->next[i];
 		}
-		node->terminated = true;
+		tmp->terminated = true;
 	}
 
 	bool search(string word) {
-		Trie *node = this;
-		for (const char ch : word) {
-			if (!node->next[ch - 'a']) return false;
-			node = node->next[ch - 'a'];
+		TrieNode *tmp = root;
+		for (const auto& ch : word) {
+			int i = ch - 'a';
+			if (!tmp->next[i])
+				return false;
+			tmp = tmp->next[i];
 		}
-		return node->terminated;
+		return tmp->terminated;
 	}
 
 	bool startsWith(string prefix) {
-		Trie *node = this;
-		for (const char ch : prefix) {
-			if (!node->next[ch - 'a']) return false;
-			node = node->next[ch - 'a'];
+		TrieNode *tmp = root;
+		for (const auto& ch : prefix) {
+			int i = ch - 'a';
+			if (!tmp->next[i])
+				return false;
+			tmp = tmp->next[i];
 		}
 		return true;
 	}

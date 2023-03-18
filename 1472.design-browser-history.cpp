@@ -6,33 +6,29 @@
 
 // @lc code=start
 class BrowserHistory {
-	stack<string> visited_back, visited_forward;
+	vector<string> record;
+	int curr;
 public:
 	BrowserHistory(string homepage) {
-		visited_back.push(homepage);
+		record.push_back(homepage);
+		curr = 0;
 	}
 
 	void visit(string url) {
-		visited_back.push(url);
-		while (!visited_forward.empty()) visited_forward.pop();
+		if (curr < record.size() - 1)
+			record.erase(record.begin() + curr + 1, record.end());
+		record.push_back(url);
+		curr = record.size() - 1;
 	}
 
 	string back(int steps) {
-		while (steps && visited_back.size() > 1) {
-			visited_forward.push(visited_back.top());
-			visited_back.pop();
-			steps--;
-		}
-		return visited_back.top();
+		curr = (curr - steps < 0) ? 0 : curr - steps;
+		return record[curr];
 	}
 
 	string forward(int steps) {
-		while (steps && !visited_forward.empty()) {
-			visited_back.push(visited_forward.top());
-			visited_forward.pop();
-			steps--;
-		}
-		return visited_back.top();
+		curr = (curr + steps > record.size() - 1) ? record.size() - 1 : curr + steps;
+		return record[curr];
 	}
 };
 

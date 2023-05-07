@@ -16,7 +16,7 @@ public:
 		 *  i = 0  [1 inf inf inf]      [1] -> upper_bound(memo.begin(), memo.end(), 1)
 		 *  i = 1  [1  2  inf inf]      [1 2] -> upper_bound(memo.begin(), memo.end(), 2)
 		 *  i = 2  [1  2   3  inf]      [1 2 3] -> upper_bound(memo.begin(), memo.end(), 3)
-		 *  i = 3  [1  2   3  inf]      [1 2 3 3] -> upper_bound(memo.begin(), memo.end(), 2)
+		 *  i = 3  [1  2   2  inf]      [1 2 3 3] -> upper_bound(memo.begin(), memo.end(), 2)
 		 */
 
 		for (int i = 0; i < obstacles.size(); i++) {

@@ -17,6 +17,7 @@ class Solution {
 			//  -> current scores
 			//	-> current scores of selection of [1 .. 3] piles
 			//      - the oppsite can get maximun scores after i + [1 .. 3] piles)
+			// ref. [1140] Stone Game II
 			memo[i] = max(memo[i], sum - dfs(v, i + j + 1));
 		}
 		return memo[i];

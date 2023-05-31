@@ -6,7 +6,7 @@
 
 // @lc code=start
 class UndergroundSystem {
-	map<pair<string, string>, vector<int>> timeNeed;
+	unordered_map<string, pair<int, int>> timeNeed;
 	unordered_map<int, pair<string, int>> travelRecord;
 public:
 	UndergroundSystem() {
@@ -18,15 +18,16 @@ public:
 	}
 
 	void checkOut(int id, string stationName, int t) {
-		const auto& [startStation, inTime] = travelRecord[id];
-		timeNeed[{ startStation, stationName }].push_back(t - inTime);
+		auto& [startStation, inTime] = travelRecord[id];
+		auto& [count, totalTime] = timeNeed[startStation + "To" + stationName];
+		count++;
+		totalTime += (t - inTime);
 		travelRecord.erase(id);
 	}
 
 	double getAverageTime(string startStation, string endStation) {
-		const auto& timeArray = timeNeed[{ startStation, endStation }];
-		double totalTime = accumulate(timeArray.begin(), timeArray.end(), 0);
-		return totalTime / timeArray.size();
+		const auto& [count, totalTime] = timeNeed[startStation + "To" + endStation];
+		return (double)totalTime / count;
 	}
 };
 

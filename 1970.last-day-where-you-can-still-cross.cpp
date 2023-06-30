@@ -42,22 +42,9 @@ public:
 			uf.unite((row - 1) * col + bc, row * col + 1);
 
 		// create water world
-		vector<vector<int>> world(row, vector<int>(col, 0));
-		for (const auto& cell : cells)
-			world[cell[0] - 1][cell[1] - 1] = 1;
+		vector<vector<int>> world(row, vector<int>(col, 1));
 
-		// unite each cell
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < col; j++) {
-				if (world[i][j] == 1) continue;
-
-				for (const auto& [r, c] : dirs)
-					if (i + r >= 0 && i + r < row && j + c >= 0 && j + c < col && world[i + r][j + c] == 0)
-						uf.unite(i * col + j, (i + r) * col + (j + c));
-			}
-		}
-
-		// restore world and check top and bottom are united
+		// restore world and check top and bottom nodes are united
 		for (int i = cells.size() - 1; i >= 0; i--) {
 			int cur_row = cells[i][0] - 1, cur_col = cells[i][1] - 1;
 			world[cur_row][cur_col] = 0;
@@ -66,10 +53,12 @@ public:
 				if (cur_row + r < 0 || cur_row + r >= row || cur_col + c < 0 || cur_col + c >= col)
 					continue;
 
+				// unite adj lands
 				if (world[cur_row + r][cur_col + c] == 0)
 					uf.unite(cur_row * col + cur_col, (cur_row + r) * col + (cur_col + c));
 			}
 
+			// check if top and bottom nodes are connected
 			if (uf.find(row * col) == uf.find(row * col + 1))
 				return i;
 		}

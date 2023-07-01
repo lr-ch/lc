@@ -55,9 +55,11 @@ public:
 			for (int j = 0; j < col; j++) {
 				if (grid[i][j] == 0) continue;
 
-				for (const auto& [r, c] : dirs)
-					if (i + r >= 0 && i + r < row && j + c >= 0 && j + c < col && grid[i + r][j + c] == 1)
-						uf.unite(i * col + j, (i + r) * col + (j + c));
+				for (const auto& [r, c] : dirs) {
+					int x = i + r, y = j + c;
+					if (x >= 0 && x < row && y >= 0 && y < col && grid[x][y] == 1)
+						uf.unite(i * col + j, x * col + y);
+				}
 			}
 		}
 
@@ -67,19 +69,15 @@ public:
 			int hr = hits[i][0], hc = hits[i][1];
 
 			// if the brick is originally empty, no fall and no restore
-			if (backup[hr][hc] == 0) {
-				res[i] = 0;
-				continue;
-			}
+			if (backup[hr][hc] == 0) continue;
 
 			// now restore the brick and check connectiveness
 			grid[hr][hc] = 1;
-			int isConnectTop = false;
+			bool isConnectTop = false;
 			int count = 0;
 			for (const auto& [r, c] : dirs) {
 				int nr = hr + r, nc = hc + c;
-				if (nr < 0 || nr >= row || nc < 0 || nc >= col || grid[nr][nc] == 0)
-					continue;
+				if (nr < 0 || nr >= row || nc < 0 || nc >= col || grid[nr][nc] == 0) continue;
 
 				int bossHitGrid = uf.find(hr * col + hc);
 				int bossAdjGrid = uf.find(nr * col + nc);
@@ -87,6 +85,7 @@ public:
 				// skip if they are already connected
 				if (bossHitGrid == bossAdjGrid) continue;
 
+				// this flag stores 1 of 4 grids states(up, down, right, left)
 				if (bossHitGrid < col || bossAdjGrid < col) isConnectTop = true;
 
 				// if the grid is not connected to top row

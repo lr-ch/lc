@@ -13,9 +13,8 @@ public:
 
 		// for each combinations of requests
 		int ans = 0;
+		vector<int> buildings(n, 0);
 		for (const auto & c : cb) {
-			vector<int> buildings(n, 0);
-
 			for (int i = 0; i < 16; i++) {
 				// if the bit is 1, apply the request
 				if (c[i] == 1) {
@@ -29,6 +28,8 @@ public:
 			auto non_zero = find_if(buildings.begin(), buildings.end(), [](int i) {return i != 0;});
 			if (non_zero == buildings.end())
 				ans = max(ans, (int)c.count());
+
+			fill(buildings.begin(), buildings.end(), 0);
 		}
 
 		return ans;

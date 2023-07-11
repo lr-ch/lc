@@ -17,8 +17,8 @@
 class Solution {
 	void buildAdjs(TreeNode* parent, TreeNode* current) {
 		if (parent && current) {
-			adjs[parent->val].insert(current->val);
-			adjs[current->val].insert(parent->val);
+			adjs[parent->val].push_back(current->val);
+			adjs[current->val].push_back(parent->val);
 		}
 
 		if (current && current->left)
@@ -28,7 +28,7 @@ class Solution {
 			buildAdjs(current, current->right);
 	}
 
-	unordered_map<int, unordered_set<int>> adjs;
+	unordered_map<int, vector<int>> adjs;
 public:
 	vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
 		buildAdjs(nullptr, root);
@@ -52,9 +52,8 @@ public:
 			while (qsize--) {
 				int node = q.front(); q.pop();
 				v[node] = true;
-				for (const auto& next : adjs[node]) {
+				for (const auto& next : adjs[node])
 					if (!v[next]) q.push(next);
-				}
 			}
 
 			k--;

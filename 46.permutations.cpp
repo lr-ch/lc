@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-class Solution {
+class SolutionBt1 {
 	vector<vector<int>> ans;
 
 	void bt(vector<int> path, vector<int> opts, vector<bool> consumed) {
@@ -33,5 +33,26 @@ public:
 		return ans;
 	}
 };
-// @lc code=end
 
+class Solution {
+	void bt(vector<int>& n, int i) {
+		if (n.size() == i) {
+			ans.push_back(n);
+			return;
+		}
+
+		for (int j = i; j < n.size(); j++) {
+			swap(n[i], n[j]);
+			bt(n, i + 1);
+			swap(n[i], n[j]);
+		}
+	}
+
+	vector<vector<int>> ans;
+public:
+	vector<vector<int>> permute(vector<int>& nums) {
+		bt(nums, 0);
+		return ans;
+	}
+};
+// @lc code=end

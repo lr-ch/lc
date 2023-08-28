@@ -23,8 +23,13 @@ class Solution {
 
 	struct pair_hash {
 		// !!!DANGER!!! there could be collisions in some cases
+	//	inline size_t operator()(const pair<int, int> & v) const {
+	//		return v.first;
+	//	}
+
+		// this should be enough to avoid collisions?
 		inline size_t operator()(const pair<int, int> & v) const {
-			return v.first;
+			return v.first * 2000 + v.second;
 		}
 	};
 

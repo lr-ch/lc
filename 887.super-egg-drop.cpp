@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-class Solution {
+class Solution1 {
 	/*
  	 * Time Limit Exceeded
  	 *  - 64/121 cases passed (N/A)
@@ -57,6 +57,48 @@ public:
 
 	//	return dfs(dp, k, n);	// TLE
 		return dfs2(dp, k, n);
+	}
+};
+
+/*
+ * ref. https://leetcode.com/problems/super-egg-drop/solutions/158974/c-java-python-2d-and-1d-dp-o-klogn/
+ */
+class Solution2 {
+public:
+	int superEggDrop(int k, int n) {
+		// dp[m][k] the maximun floor can be certain with m moves and k eggs
+		vector<vector<int>> dp(n + 1, vector<int>(k + 1, 0));
+
+		int m = 0;
+		while (dp[m][k] < n) {
+			m++;
+			for (int eggs = 1; eggs <= k; eggs++)
+				dp[m][eggs] = dp[m - 1][eggs - 1] + dp[m - 1][eggs] + 1;
+		}
+		return m;
+	}
+};
+
+class Solution {
+	/*
+	 * Accepted
+	 *  - 121/121 cases passed (76 ms)
+	 *  - Your runtime beats 54.85 % of cpp submissions
+	 *  - Your memory usage beats 20.64 % of cpp submissions (29.9 MB)
+	 */
+	Solution1 sol1;
+
+	/*
+	 * Accepted
+	 *  - 121/121 cases passed (63 ms)
+	 *  - Your runtime beats 70.21 % of cpp submissions
+	 *  - Your memory usage beats 8.23 % of cpp submissions (47.8 MB)
+	 */
+	Solution2 sol2;
+public:
+	int superEggDrop(int k, int n) {
+	//	return sol1.superEggDrop(k, n);
+		return sol2.superEggDrop(k, n);
 	}
 };
 // @lc code=end

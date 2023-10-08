@@ -45,6 +45,29 @@ public:
 	}
 };
 
+class SolutionDfs {
+	int dfs(const vector<int>& v1, const vector<int>& v2, int i, int j) {
+		if (i <= 0 || j <= 0) return INT_MIN;
+		if (memo[i][j] != INT_MIN) return memo[i][j];
+
+		int product = v1[i - 1] * v2[j - 1];
+		memo[i][j] = max({
+						dfs(v1, v2, i - 1, j),
+						dfs(v1, v2, i, j - 1),
+						max(0, dfs(v1, v2, i - 1, j - 1)) + product
+					});
+
+		return memo[i][j];
+	}
+
+	vector<vector<int>> memo;
+public:
+	int maxDotProduct(vector<int>& nums1, vector<int>& nums2) {
+		memo.assign(nums1.size() + 1, vector<int>(nums2.size() + 1, INT_MIN));
+		return dfs(nums1, nums2, nums1.size(), nums2.size());
+	}
+};
+
 class Solution {
 	/*
 	 * Accepted
@@ -61,10 +84,19 @@ class Solution {
 	 *  - Your memory usage beats 99.23 % of cpp submissions (9.8 MB)
 	 */
 	SolutionExp exp;
+
+	/*
+	 * Accepted
+	 *  - 62/62 cases passed (52 ms)
+	 *  - Your runtime beats 32.39 % of cpp submissions
+	 *  - Your memory usage beats 19.28 % of cpp submissions (14 MB)
+	 */
+	SolutionDfs dfs;
 public:
 	int maxDotProduct(vector<int>& nums1, vector<int>& nums2) {
 	//	return s2d.maxDotProduct(nums1, nums2);
-		return exp.maxDotProduct(nums1, nums2);
+	//	return exp.maxDotProduct(nums1, nums2);
+		return dfs.maxDotProduct(nums1, nums2);
 	}
 };
 // @lc code=end

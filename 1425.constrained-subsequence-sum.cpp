@@ -32,11 +32,11 @@ public:
 		int ans = INT_MIN;
 		for (int i = 0; i < nums.size(); i++) {
 			// is the queue full?
-			if (i > k && mq.size() > 0 && mq.max().second == i - k - 1)
+			if (i > k && !mq.empty() && mq.max().second == i - k - 1)
 				mq.pop();
 
 			int sum;
-			if (i == 0 || mq.size() == 0)
+			if (i == 0 || mq.empty())
 				sum = nums[i];
 			else
 				sum = max(mq.max().first, 0) + nums[i];

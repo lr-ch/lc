@@ -16,8 +16,11 @@ public:
 		// find leading bit of n
 		string str = bitset<32>(n).to_string();
 		int leading = 0;
-		for (int i = 31; i >= 0; i--)
-			if (str[i] == '1') leading = 31 - i;
+		for (int i = 0; i < 32; i++)
+			if (str[i] == '1') {
+				leading = 31 - i;
+				break;
+			}
 
 		return memo[n] = (1 << (leading + 1)) - 1 - minimumOneBitOperations(n ^ (1 << leading));
 	}

@@ -17,33 +17,29 @@
  * };
  */
 class Solution {
-	int tripleMax(int a, int b, int c) {
-		return max(a, max(b, c));
+	pair<int, int> dfs(TreeNode* root) {
+		pair<int, int> minmaxLeft = {root->val, root->val};
+		pair<int, int> minmaxRight = {root->val, root->val};
+
+		if (root->left) minmaxLeft = dfs(root->left);
+		if (root->right) minmaxRight = dfs(root->right);
+
+		ans = max({
+					ans,
+					max(abs(root->val - minmaxLeft.first), abs(root->val - minmaxRight.first)),
+					max(abs(root->val - minmaxLeft.second), abs(root->val - minmaxRight.second))
+				});
+
+		return {
+				min({minmaxLeft.first, minmaxRight.first, root->val}),
+				max({minmaxLeft.second, minmaxRight.second, root->val})
+			};
 	}
 
-	int tripleMin(int a, int b, int c) {
-		return min(a, min(b, c));
-	}
-
-	pair<int, int> dfs(TreeNode* root, int& ans) {
-		pair<int, int> minmaxLeft = {root->val, root->val };
-		pair<int, int> minmaxRight = {root->val, root->val };
-
-		if (root->left) minmaxLeft = dfs(root->left, ans);
-		if (root->right) minmaxRight = dfs(root->right, ans);
-
-		ans = tripleMax(
-				ans,
-				max(abs(root->val - minmaxLeft.first), abs(root->val - minmaxRight.first)),
-				max(abs(root->val - minmaxLeft.second), abs(root->val - minmaxRight.second)));
-
-		return { tripleMin(minmaxLeft.first, minmaxRight.first, root->val), tripleMax(minmaxLeft.second, minmaxRight.second, root->val) };
-	}
-
+	int ans = 0;
 public:
 	int maxAncestorDiff(TreeNode* root) {
-		int ans = 0;
-		dfs(root, ans);
+		dfs(root);
 		return ans;
 	}
 };

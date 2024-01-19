@@ -6,10 +6,6 @@
 
 // @lc code=start
 class Solution {
-	int minOf3(int a, int b, int c) {
-		return min(a, min(b, c));
-	}
-
 	int dp(vector<vector<int>>& m, int r, int c, vector<vector<int>>& t) {
 		// check boundary
 		if (r >= R || r < 0 || c >= C || c < 0) return 10001;
@@ -17,10 +13,11 @@ class Solution {
 
 		if (t[r][c] < 10001) return t[r][c];
 
-		t[r][c] = m[r][c] + minOf3(
+		t[r][c] = m[r][c] + min({
 								dp(m, r - 1, c - 1, t),
 								dp(m, r - 1,   c  , t),
-								dp(m, r - 1, c + 1, t));
+								dp(m, r - 1, c + 1, t)
+							});
 
 		return t[r][c];
 	}
@@ -39,4 +36,3 @@ public:
 	}
 };
 // @lc code=end
-

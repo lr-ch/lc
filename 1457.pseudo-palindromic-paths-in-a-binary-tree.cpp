@@ -16,7 +16,7 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution {
+class Solution1 {
 	bool countCheck(array<int, 10>& c) {
 		int odd = 0;
 		for (auto& i : c)
@@ -48,6 +48,31 @@ public:
 
 		fill(count.begin(), count.end(), 0);
 		traverse(root, count, result);
+		return result;
+	}
+};
+
+class Solution {
+	void preorder(TreeNode* root, bitset<10>& path, int& count) {
+		if (root) {
+			path[root->val].flip();
+
+			if (!root->left && !root->right)
+				if (path.count() <= 1)	// palindrome only accepts odd count is 1 or 0
+					count++;			// e.g. "12321", "123321"
+
+			preorder(root->left, path, count);
+			preorder(root->right, path, count);
+
+			path[root->val].flip();
+		}
+	}
+public:
+	int pseudoPalindromicPaths (TreeNode* root) {
+		bitset<10> freq;	// 1 <= Node.val <= 9, the bit will be reset when count to even
+		int result = 0;
+
+		preorder(root, freq, result);
 		return result;
 	}
 };

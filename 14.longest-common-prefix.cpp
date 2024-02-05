@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-class Solution {
+class SolutionIntuition {
 public:
 	string longestCommonPrefix(vector<string>& strs) {
 		string ans = "";
@@ -24,6 +24,22 @@ public:
 		}
 
 		return ans;
+	}
+};
+
+class Solution {
+public:
+	string longestCommonPrefix(vector<string>& strs) {
+		for (int i = 0; i < strs[0].length(); i++) {
+			const char ch = strs[0][i];
+			for (int j = 1; j < strs.size(); j++) {
+				if (i > strs[j].length())
+					return strs[0].substr(0, i);
+				if (ch != strs[j][i])
+					return strs[0].substr(0, i);
+			}
+		}
+		return strs[0];
 	}
 };
 // @lc code=end

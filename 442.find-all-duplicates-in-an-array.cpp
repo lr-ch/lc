@@ -33,6 +33,26 @@ public:
 	}
 };
 
+class SolutionInplace {
+public:
+	vector<int> findDuplicates(vector<int>& nums) {
+		vector<int> ans;
+
+		/*
+		 * n is in range [1, n],
+		 * n as index, visit nums[n] and mark it to negative as visited
+		 * if n is duplicate --> nums[n] is negative at second visiting,
+		 * then put n into ans
+		 */
+		for (const auto& n : nums)
+			if (nums[abs(n) - 1] < 0)
+				ans.push_back(abs(n));
+			else
+				nums[abs(n) - 1] *= -1;
+		return ans;
+	}
+}
+
 class Solution {
 	/*
 	 * Accepted
@@ -50,10 +70,18 @@ class Solution {
 	 */
 	SolutionMap solMap;
 
+	/*
+	 * Accepted
+	 *  - 28/28 cases passed (38 ms)
+	 *  - Your runtime beats 79.12 % of cpp submissions
+	 *  - Your memory usage beats 90.94 % of cpp submissions (35.84 MB)
+	 */
+	SolutionInplace inplace;
 public:
 	vector<int> findDuplicates(vector<int>& nums) {
 	//	return solItera.findDuplicates(nums);
-		return solMap.findDuplicates(nums);
+	//	return solMap.findDuplicates(nums);
+		return inplace.findDuplicates(nums);
 	}
 };
 // @lc code=end
